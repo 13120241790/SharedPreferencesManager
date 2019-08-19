@@ -58,7 +58,7 @@ public class SharedPreferencesManager {
         mMemoryMap = new ConcurrentHashMap();
         mPreferences = context.getSharedPreferences(sharedPreferencesName, Context.MODE_PRIVATE);
         mEditor = mPreferences.edit();
-        mMemoryMap = mPreferences.getAll();
+        mMemoryMap.putAll(mPreferences.getAll());
     }
 
     /**
