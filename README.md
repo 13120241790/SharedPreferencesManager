@@ -1,16 +1,19 @@
 # SharedPreferencesManager
 
 
-> 一款简单易用的支持内存映射的 SharedPreferences 工具类
+> 一款简单易用的支持内存映射的 SharedPreferences 工具库
 
 
 
 - 基于 SharedPreferences 键值对的特性，在 SharedPreferences  xml 文件缓存(磁盘缓存)前置了一层并发安全内存容器模型 ConcurrentHashMap 
-- 主要提高了读取数据的效率
+
+- 优先从内存缓存中取数据，大幅提高了读取数据的效率
+
+- 支持对象的序列化和反序列化
+
 - 和原生的 SharedPreferences 一样不支持夸进程
-- 目前支持的数据类型有  String 、int 、boolean、float、long ，过大的数据建议采用数据库方式存储
 
-
+  
 
 
 
@@ -58,7 +61,110 @@ String s = (String) SharedPreferencesManager.getInstance().get("keyString", "x")
 
 
 
-### TODO
+### 高阶用法
 
-根据需求考虑支持更多的数据类型，例如对象序列化、反序列化
+ShaerdPreferencesManager 提供了基于 Json 对非基本数据类型对象的序列化和反序列化的能力，设计思想为
+
+- ShaerdPreferencesManager 只提供解析接口，对象的序列化和反序列化不做具体实现，要保持类库的无依赖性，低耦合性。这一部分交由调用者去实现。
+
+- 每个使用者所采用的 Json 解析方式不一样 (Gson、FastJson、Jackson等) ShaerdPreferencesManager 也不可能做全面覆盖。
+
+  
+
+  建议用法:
+
+  
+
+  ```Java
+  public class App extends Application {
+      @Override
+      public void onCreate() {
+          super.onCreate();
+          SharedPreferencesManager.getInstance().init(this);
+          SharedPreferencesManager.getInstance().setJsonParserStrategy(new JsonParserStrategy() {
+              @Override
+              public String encode(Object o) {
+                  String jsonString;
+                  //采用 gson 的实现解析方式
+                  Gson gson = new Gson();
+                  jsonString = gson.toJson(o);
+  
+                  //采用 fastjson 的实现解析方式
+                  //jsonString = JSON.toJSONString(o);
+                  return jsonString;
+              }
+  
+              @Override
+              public Object decode(String jsonString, Class<?> c) {
+                  if (jsonString == null) {
+                      return null;
+                  }
+  
+                  Object o;
+                  //采用 gson 的实现解析方式
+                  Gson gson = new Gson();
+                  o = gson.fromJson(jsonString, c);
+  
+                  //采用 fastjson 的实现解析方式
+                  // o = JSON.parseObject(jsonString, c);
+                  return o;
+              }
+          });
+      }
+  }
+  ```
+
+   
+
+Sample:
+
+
+
+```java
+public class MainActivity extends AppCompatActivity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        User user = new User();
+        user.name = "张三";
+        user.age = 30;
+        user.address = "北京市东城区银河SOHO";
+        user.sex = "男";
+        user.phone = "110";
+        user.isVip = true;
+
+        SharedPreferencesManager.getInstance().put("currentUser", user);
+
+        User cacheUser = (User) SharedPreferencesManager.getInstance().get("currentUser", new User());
+        Log.e(SharedPreferencesManager.class.getSimpleName(), cacheUser.toString());
+
+    }
+
+    class User {
+        String name;
+        int age;
+        String address;
+        String sex;
+        String phone;
+        boolean isVip;
+
+        @Override
+        public String toString() {
+            return "User{" +
+                    "name='" + name + '\'' +
+                    ", age=" + age +
+                    ", address='" + address + '\'' +
+                    ", sex='" + sex + '\'' +
+                    ", phone='" + phone + '\'' +
+                    ", isVip=" + isVip +
+                    '}';
+        }
+    }
+
+}
+```
+
+
 
