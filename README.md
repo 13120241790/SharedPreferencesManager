@@ -65,7 +65,7 @@ String s = (String) SharedPreferencesManager.getInstance().get("keyString", "x")
 
 ShaerdPreferencesManager 提供了基于 Json 对非基本数据类型对象的序列化和反序列化的能力，设计思想为
 
-- ShaerdPreferencesManager 只提供解析接口，对象的序列化和反序列化不做具体实现，要保持类库的无依赖性，低耦合性。这一部分交由调用者去实现。
+- 要保持类库的无依赖性，低耦合性。ShaerdPreferencesManager 只提供解析接口，对对象的序列化和反序列化不做具体实现，这一部分交由调用者去实现。
 
 - 每个使用者所采用的 Json 解析方式不一样 (Gson、FastJson、Jackson等) ShaerdPreferencesManager 也不可能做全面覆盖。
 
