@@ -1,7 +1,7 @@
 # SharedPreferencesManager
 
 
-> 一款简单易用的支持内存映射的 SharedPreferences 工具库
+> 一款支持内存映射的 SharedPreferences 工具库
 
 
 
@@ -62,9 +62,9 @@ String s = (String) SharedPreferencesManager.getInstance().get("keyString", "x")
 
 
 
-### 高阶用法
+### 进阶用法
 
-ShaerdPreferencesManager 提供了基于 Json 对非基本数据类型对象的序列化和反序列化的能力，设计思想为
+ShaerdPreferencesManager 提供了基于 Json 对非基本数据类型对象的序列化和反序列化的能力，思路为:
 
 - 要保持类库的无依赖性，低耦合性。ShaerdPreferencesManager 只提供解析接口，对对象的序列化和反序列化不做具体实现，这一部分交由调用者去实现。
 
