@@ -1,6 +1,7 @@
 # SharedPreferencesManager
 
 
+
 > 一款支持内存映射的 SharedPreferences 工具库
 
 
