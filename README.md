@@ -60,5 +60,5 @@ String s = (String) SharedPreferencesManager.getInstance().get("keyString", "x")
 
 ### TODO
 
-根据需求考虑支持更多的数据类型，例如对象序列化
+根据需求考虑支持更多的数据类型，例如对象序列化、反序列化
 
