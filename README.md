@@ -58,6 +58,7 @@ String s = (String) SharedPreferencesManager.getInstance().get("keyString", "x")
 | remove                                    | String key                                    | 根据键移除某个值                                   |
 | registerSharedPreferencesChangeListener   | OnSharedPreferenceChangeListener              | 注册 SharedPreferences 变化监听的包装接口          |
 | unRegisterSharedPreferencesChangeListener | OnSharedPreferenceChangeListener              | 反注册 SharedPreferences 变化监听的包装接口        |
+| setJsonParserStrategy                     | JsonParserStrategy                            | 暴露给调用者去实现的对象序列化和反序列化接口       |
 
 
 
@@ -68,6 +69,18 @@ ShaerdPreferencesManager 提供了基于 Json 对非基本数据类型对象的�
 - 要保持类库的无依赖性，低耦合性。ShaerdPreferencesManager 只提供解析接口，对对象的序列化和反序列化不做具体实现，这一部分交由调用者去实现。
 
 - 每个使用者所采用的 Json 解析方式不一样 (Gson、FastJson、Jackson等) ShaerdPreferencesManager 也不可能做全面覆盖。
+
+  
+
+  ```java
+  public interface JsonParserStrategy {
+      String encode(Object o);
+  
+      Object decode(String jsonString, Class<?> c);
+  }
+  ```
+
+  
 
   
 

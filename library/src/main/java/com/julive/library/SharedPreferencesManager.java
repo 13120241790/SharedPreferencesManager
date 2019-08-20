@@ -65,7 +65,7 @@ public class SharedPreferencesManager {
     private JsonParserStrategy mJsonParserStrategy;
 
     /**
-     * 暴露给开发者去实现的对象序列化和反序列化接口
+     * 暴露给调用者去实现的对象序列化和反序列化接口
      *
      * @param jsonParserStrategy json 解析策略
      */
