@@ -20,6 +20,8 @@ public class SharedPreferencesManager {
 
     private SharedPreferences.Editor mEditor;
 
+    private JsonParserStrategy mJsonParserStrategy;
+
     private Map mMemoryMap;
 
     private SharedPreferencesManager() {
@@ -61,9 +63,6 @@ public class SharedPreferencesManager {
         mMemoryMap.putAll(mPreferences.getAll());
     }
 
-
-    private JsonParserStrategy mJsonParserStrategy;
-
     /**
      * 暴露给调用者去实现的对象序列化和反序列化接口
      *
@@ -74,7 +73,6 @@ public class SharedPreferencesManager {
             mJsonParserStrategy = jsonParserStrategy;
         }
     }
-
 
     /**
      * @param key   键
@@ -221,6 +219,5 @@ public class SharedPreferencesManager {
             throw new IllegalArgumentException("Key can not is null or empty!");
         }
     }
-
 
 }
