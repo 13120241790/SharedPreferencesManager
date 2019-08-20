@@ -61,9 +61,24 @@ public class SharedPreferencesManager {
         mMemoryMap.putAll(mPreferences.getAll());
     }
 
+
+    private JsonParserStrategy mJsonParserStrategy;
+
+    /**
+     * 暴露给开发者去实现的对象序列化和反序列化接口
+     *
+     * @param jsonParserStrategy json 解析策略
+     */
+    public void setJsonParserStrategy(JsonParserStrategy jsonParserStrategy) {
+        if (jsonParserStrategy != null) {
+            mJsonParserStrategy = jsonParserStrategy;
+        }
+    }
+
+
     /**
      * @param key   键
-     * @param value 值: 暂时只支持原生数据类型
+     * @param value 值
      */
     public void put(String key, Object value) {
         legalInspection(key);
@@ -82,14 +97,17 @@ public class SharedPreferencesManager {
         } else if (value instanceof Long) {
             mEditor.putLong(key, (Long) value);
         } else {
-            throw new IllegalStateException("This type is not supported for the time being!");
+            String jsonString = mJsonParserStrategy.encode(value);
+            if (jsonString != null) {
+                mEditor.putString(key, jsonString);
+            }
         }
         mEditor.apply();
     }
 
     /**
      * @param key   键
-     * @param value 值: 暂时只支持原生数据类型
+     * @param value 值
      * @return 返回本次磁盘缓存是否成功
      */
     public boolean putHasResult(String key, Object value) {
@@ -109,7 +127,10 @@ public class SharedPreferencesManager {
         } else if (value instanceof Long) {
             mEditor.putLong(key, (Long) value);
         } else {
-            throw new IllegalStateException("This type is not supported for the time being!");
+            String jsonString = mJsonParserStrategy.encode(value);
+            if (jsonString != null) {
+                mEditor.putString(key, jsonString);
+            }
         }
         return mEditor.commit();
     }
@@ -136,7 +157,8 @@ public class SharedPreferencesManager {
                 return mPreferences.getLong(key, (Long) defaultValue);
             }
         }
-        return defaultValue;
+        Object o = mJsonParserStrategy.decode(mPreferences.getString(key, null), defaultValue.getClass());
+        return o == null ? defaultValue : o;
     }
 
     /**
