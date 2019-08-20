@@ -79,6 +79,8 @@ public class SharedPreferencesManager {
             mEditor.putBoolean(key, (Boolean) value);
         } else if (value instanceof Float) {
             mEditor.putFloat(key, (Float) value);
+        } else if (value instanceof Long) {
+            mEditor.putLong(key, (Long) value);
         } else {
             throw new IllegalStateException("This type is not supported for the time being!");
         }
@@ -104,6 +106,8 @@ public class SharedPreferencesManager {
             mEditor.putBoolean(key, (Boolean) value);
         } else if (value instanceof Float) {
             mEditor.putFloat(key, (Float) value);
+        } else if (value instanceof Long) {
+            mEditor.putLong(key, (Long) value);
         } else {
             throw new IllegalStateException("This type is not supported for the time being!");
         }
