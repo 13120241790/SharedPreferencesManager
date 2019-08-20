@@ -13,6 +13,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         User user = new User();
         user.name = "张三";
         user.age = 30;
@@ -48,6 +49,5 @@ public class MainActivity extends AppCompatActivity {
                     '}';
         }
     }
-
 }
 
