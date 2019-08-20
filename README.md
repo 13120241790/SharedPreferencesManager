@@ -47,18 +47,18 @@ String s = (String) SharedPreferencesManager.getInstance().get("keyString", "x")
 
 ### API
 
-| 方法名                                    | 参数                                          | 描述                                               |
-| ----------------------------------------- | --------------------------------------------- | -------------------------------------------------- |
-| init                                      | Context context                               | 初始化                                             |
-| init                                      | Context context, String sharedPreferencesName | 初始化，自定义 sp 文件命名                         |
-| put                                       | String key, Object value                      | 存储数据，异步提交                                 |
-| putHasResult                              | String key, Object value                      | 存储数据，同步提交且返回是否存储成功 Boolean       |
-| get                                       | String key, Object defaultValue               | 取出数据，优先命中缓存，如果磁盘也没有则返回默认值 |
-| clearAll                                  |                                               | 清除所有缓存，包含内存和磁盘                       |
-| remove                                    | String key                                    | 根据键移除某个值                                   |
-| registerSharedPreferencesChangeListener   | OnSharedPreferenceChangeListener              | 注册 SharedPreferences 变化监听的包装接口          |
-| unRegisterSharedPreferencesChangeListener | OnSharedPreferenceChangeListener              | 反注册 SharedPreferences 变化监听的包装接口        |
-| setJsonParserStrategy                     | JsonParserStrategy                            | 暴露给调用者去实现的对象序列化和反序列化接口       |
+|                  方法名                   |                     参数                      |                        描述                        |
+| :---------------------------------------: | :-------------------------------------------: | :------------------------------------------------: |
+|                   init                    |                Context context                |                       初始化                       |
+|                   init                    | Context context, String sharedPreferencesName |             初始化，自定义 sp 文件命名             |
+|                    put                    |           String key, Object value            |                 存储数据，异步提交                 |
+|               putHasResult                |           String key, Object value            |    存储数据，同步提交且返回是否存储成功 Boolean    |
+|                    get                    |        String key, Object defaultValue        | 取出数据，优先命中缓存，如果磁盘也没有则返回默认值 |
+|                 clearAll                  |                                               |            清除所有缓存，包含内存和磁盘            |
+|                  remove                   |                  String key                   |                  根据键移除某个值                  |
+|  registerSharedPreferencesChangeListener  |       OnSharedPreferenceChangeListener        |     注册 SharedPreferences 变化监听的包装接口      |
+| unRegisterSharedPreferencesChangeListener |       OnSharedPreferenceChangeListener        |    反注册 SharedPreferences 变化监听的包装接口     |
+|           setJsonParserStrategy           |              JsonParserStrategy               |    暴露给调用者去实现的对象序列化和反序列化接口    |
 
 
 
