@@ -63,7 +63,7 @@ String s = (String) SharedPreferencesManager.getInstance().get("keyString", "x")
 
 
 
-### 进阶用法
+### 序列化用法
 
 ShaerdPreferencesManager 提供了基于 Json 对非基本数据类型对象的序列化和反序列化的能力，思路为:
 
