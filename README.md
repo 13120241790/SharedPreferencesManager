@@ -182,3 +182,6 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+### TODO
+
+增加内存缓存淘汰策略，淘汰内存缓存中使用低频的数据，防止内存占用过大。这部分数据如果再次需要被使用从磁盘缓存中取
